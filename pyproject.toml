@@ -6,7 +6,9 @@ readme = "README.md"
 authors = [{ name = "José Expósito", email = "jose.exposito89@gmail.com" }]
 
 requires-python = "==3.12.13"
-dependencies = []
+dependencies = [
+    "tiktoken==0.12.0",
+]
 
 [project.optional-dependencies]
 # Dependencias para el exploratory Data Analysis del corpus
@@ -14,6 +16,7 @@ eda = [
     "datasets==4.8.4",
     "ipykernel==7.2.0",
     "ipywidgets==8.1.8",
+    "nltk==3.9.4",
     "pandas==3.0.2",
 ]
 
