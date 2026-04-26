@@ -29,6 +29,14 @@ proyectos:
 Contiene el Jupyter notebook donde se realiza el análisis exploratorio del
 corpus [TinyStories](https://huggingface.co/datasets/roneneldan/TinyStories).
 
+### src/01_dataset_preparation
+
+Contiene el Jupyter notebook donde se muestra como preparar el corpus para ser
+utilizado por el LLM. Utiliza [byte-pair encoding](https://en.wikipedia.org/wiki/Byte-pair_encoding)
+para tokenizar el texto, las clases [Dataset y DataLoader de PyTorch](https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html)
+para proveer los datos al LLM utilizando [sliding window](https://arxiv.org/abs/2502.18845)
+y, finalmente, muestra como obtener token embeddings a partir de los token IDs.
+
 ### src/llm_from_scratch
 
 Contiene el código fuente del LLM.
