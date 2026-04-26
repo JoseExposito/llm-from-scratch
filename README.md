@@ -24,7 +24,7 @@ $ uv sync --extra eda
 El código fuente se encuentra en la carpeta `src`, dividido en distintos
 proyectos:
 
-### src/eda
+### src/00_eda
 
 Contiene el Jupyter notebook donde se realiza el análisis exploratorio del
 corpus [TinyStories](https://huggingface.co/datasets/roneneldan/TinyStories).
