@@ -37,6 +37,13 @@ para tokenizar el texto, las clases [Dataset y DataLoader de PyTorch](https://do
 para proveer los datos al LLM utilizando [sliding window](https://arxiv.org/abs/2502.18845)
 y, finalmente, muestra como obtener token embeddings a partir de los token IDs.
 
+### src/02_attention_mechanism
+
+Contiene el Jupyter notebook donde se lleva a cabo la implementación del
+mecanismo de atención del LLM. Se parte de una explicación del mecanismo de
+atención y se mejora hasta llegar a la implementación un mecanismo de atención
+similar al utilizado por GPT-2.
+
 ### src/llm_from_scratch
 
 Contiene el código fuente del LLM.
