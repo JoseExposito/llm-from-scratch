@@ -16,7 +16,7 @@ Una vez instalado uv, las dependencias del proyecto su pueden instalar
 utilizando el siguiente comando:
 
 ```bash
-$ uv sync --extra eda
+$ uv sync --extra notebooks
 ```
 
 ## Estructura
