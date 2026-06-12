@@ -1,3 +1,6 @@
+import tiktoken
+from typing import Literal
+
 class Config:
     """Clase que almacena la configuración utilizada por el modelo"""
     def __init__(
@@ -33,3 +36,26 @@ class Config:
         self.n_transformer_blocks = n_transformer_blocks
         self.dropout_rate = dropout_rate
         self.query_key_value_bias = query_key_value_bias
+
+
+class ConfigFactory:
+    """Factoría para crear las distintas configuraciones disponibles"""
+
+    @staticmethod
+    def create_config(type: Literal["gpt-2"]) -> Config:
+        vocab_size = tiktoken.get_encoding("gpt2").n_vocab
+
+        if type == "gpt-2":
+            return Config(
+                vocab_size = vocab_size,
+                context_length = 1024,
+                embedding_dimensions = 768,
+                n_heads = 12,
+                n_transformer_blocks = 12,
+                dropout_rate = 0.1,
+                query_key_value_bias = False,
+            )
+
+        raise NotImplementedError(f"La configuración {type} no está soportada")
+
+
