@@ -11,6 +11,12 @@ dependencies = [
     "torch==2.11.0",
 ]
 
+[dependency-groups]
+dev = [
+    "poethepoet==0.46.0",
+    "ruff==0.15.17",
+]
+
 [project.optional-dependencies]
 # Dependencias necesarias para ejecutar los distintos notebooks
 notebooks = [
@@ -29,3 +35,7 @@ build-backend = "uv_build"
 
 [project.scripts]
 llm_from_scratch = "llm_from_scratch.main:main"
+
+[tool.poe.tasks]
+lint = "uv run ruff check src/llm_from_scratch"
+format = "uv run ruff format src/llm_from_scratch"
