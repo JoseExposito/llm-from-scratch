@@ -37,5 +37,6 @@ build-backend = "uv_build"
 llm_from_scratch = "llm_from_scratch.main:main"
 
 [tool.poe.tasks]
-lint = "uv run ruff check src/llm_from_scratch"
-format = "uv run ruff format src/llm_from_scratch"
+test = "uv run python -m unittest discover -s tests -p 'test_*.py'"
+lint = "uv run ruff check src/llm_from_scratch tests"
+format = "uv run ruff format src/llm_from_scratch tests"
