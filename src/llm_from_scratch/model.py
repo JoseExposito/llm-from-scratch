@@ -46,3 +46,13 @@ class Model(nn.Module):
         x = self.final_norm(x)
         logits = self.out_head(x)
         return logits
+
+    def print_info(self) -> None:
+        print("Model information:")
+
+        total_params = sum(p.numel() for p in self.parameters())
+        print(f"- Number of parameters: {total_params:,}")
+
+        total_size_bytes = total_params * 4
+        total_size_mb = total_size_bytes / (1024 * 1024)
+        print(f"- Size of the model: {total_size_mb:.2f} MB")
