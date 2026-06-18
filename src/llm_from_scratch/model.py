@@ -1,0 +1,48 @@
+import torch
+import torch.nn as nn
+
+from llm_from_scratch.config import Config
+from llm_from_scratch.layer_norm import LayerNorm
+from llm_from_scratch.transformer_block import TransformerBlock
+
+
+class Model(nn.Module):
+    def __init__(self, config: Config) -> None:
+        super().__init__()
+
+        self.token_embeddings = nn.Embedding(
+            config.vocabulary_size, config.embedding_dim
+        )
+
+        self.positional_embeddings = nn.Embedding(
+            config.context_length, config.embedding_dim
+        )
+
+        self.dropout = nn.Dropout(config.dropout_rate)
+
+        self.transformer_blocks = nn.Sequential(
+            *[TransformerBlock(config) for _ in range(config.n_transformer_blocks)]
+        )
+
+        self.final_norm = LayerNorm(config.embedding_dim)
+
+        self.out_head = nn.Linear(
+            config.embedding_dim,
+            config.vocabulary_size,
+            bias=False,
+        )
+
+    def forward(self, in_idx):
+        batch_size, seq_len = in_idx.shape
+
+        token_embeddings = self.token_embeddings(in_idx)
+        positional_embeddings = self.positional_embeddings(
+            torch.arange(seq_len, device=in_idx.device)
+        )
+
+        x = token_embeddings + positional_embeddings
+        x = self.dropout(x)
+        x = self.transformer_blocks(x)
+        x = self.final_norm(x)
+        logits = self.out_head(x)
+        return logits
