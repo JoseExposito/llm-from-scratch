@@ -5,6 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Base model (10M)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/llm_from_scratch/main.py",
+            "args": [
+                "--configuration",
+                "base-model-10M",
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "python": "${command:python.interpreterPath}"
+        },
+        {
             "name": "GPT-2",
             "type": "debugpy",
             "request": "launch",
