@@ -105,7 +105,9 @@ def _training_loop(
                 track_tokens_seen.append(tokens_seen)
                 print(
                     f"Ep {epoch + 1} (Step {global_step:06d}): "
-                    f"Train loss {train_loss:.3f}, Val loss {val_loss:.3f}"
+                    f"Train loss {train_loss:.3f}, "
+                    f"Val loss {val_loss:.3f}, "
+                    f"Perplexity {torch.exp(torch.tensor(train_loss)).item():.3f}"
                 )
 
     return train_losses, val_losses, track_tokens_seen
