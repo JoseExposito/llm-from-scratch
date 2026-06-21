@@ -5,13 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Base model (10M)",
+            "name": "Base model (10M) - Training",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/src/llm_from_scratch/main.py",
             "args": [
-                "--configuration",
-                "base-model-10M",
+                "--configuration", "base-model-10M",
+                "--mode", "training",
             ],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",

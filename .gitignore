@@ -69,3 +69,5 @@ cython_debug/
 
 # Ruff stuff:
 .ruff_cache/
+
+results-training

@@ -682,6 +682,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "datasets" },
+    { name = "matplotlib" },
     { name = "numpy" },
     { name = "torch" },
     { name = "transformers" },
@@ -708,6 +709,7 @@ requires-dist = [
     { name = "datasets", specifier = "==4.8.4" },
     { name = "ipykernel", marker = "extra == 'notebooks'", specifier = "==7.2.0" },
     { name = "ipywidgets", marker = "extra == 'notebooks'", specifier = "==8.1.8" },
+    { name = "matplotlib", specifier = "==3.10.9" },
     { name = "matplotlib", marker = "extra == 'notebooks'", specifier = "==3.10.9" },
     { name = "nltk", marker = "extra == 'notebooks'", specifier = "==3.9.4" },
     { name = "numpy", specifier = "==2.4.4" },

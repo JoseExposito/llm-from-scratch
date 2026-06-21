@@ -7,6 +7,7 @@ class Config:
 
     def __init__(
         self,
+        name: str,
         tokenizer: object,
         vocabulary_size: int,
         context_length: int,
@@ -18,6 +19,7 @@ class Config:
     ) -> None:
         """
         Args:
+            name: Nombre de la configuración
             tokenizer: Tokenizador utilizado por el modelo. Debe implementar los
                 métodos encode() y decode().
             vocabulary_size: Tamaño del vocabulario, número de embedding IDs
@@ -34,6 +36,7 @@ class Config:
             query_key_value_bias: Si se suma o no un bias a las neuronas de las
                 capas de query, key y value del mecanismo de atención.
         """
+        self.name = name
         self.tokenizer = tokenizer
         self.vocabulary_size = vocabulary_size
         self.context_length = context_length
@@ -57,12 +60,13 @@ class ConfigFactory:
             vocabulary_size = tokenizer.vocab_size
 
             return Config(
+                name=type,
                 tokenizer=tokenizer,
                 vocabulary_size=vocabulary_size,
                 context_length=512,
                 embedding_dim=256,
                 n_heads=8,
-                n_transformer_blocks=8,
+                n_transformer_blocks=6,
                 dropout_rate=0.1,
                 query_key_value_bias=False,
             )

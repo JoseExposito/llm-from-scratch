@@ -2,7 +2,7 @@ from datasets import load_dataset
 import numpy as np
 import torch
 from torch.utils.data import Dataset, DataLoader
-from transformers import PreTrainedTokenizerFast
+
 
 class TinyDataset(Dataset):
     """Copia del Dataset implementado con mayor detalle en el notebook
@@ -65,7 +65,13 @@ class TinyDataset(Dataset):
 
 
 def create_dataloader(
-    tokenizer, split, batch_size, window_size, shuffle=True, drop_last=True, num_workers=0
+    tokenizer,
+    split,
+    batch_size,
+    window_size,
+    shuffle=True,
+    drop_last=True,
+    num_workers=0,
 ):
     dataset = TinyDataset(tokenizer, split, window_size)
     dataloader = DataLoader(
