@@ -17,6 +17,21 @@
             "cwd": "${workspaceFolder}",
             "justMyCode": false,
             "python": "${command:python.interpreterPath}"
-        }
+        },
+        {
+            "name": "Base model (10M) - Inference",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/llm_from_scratch/main.py",
+            "args": [
+                "--configuration", "base-model-10M",
+                "--mode", "inference",
+                "--start-context", "Once upon a"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "python": "${command:python.interpreterPath}"
+        },
     ]
 }

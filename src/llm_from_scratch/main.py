@@ -5,6 +5,7 @@ import torch
 from llm_from_scratch.config import ConfigFactory
 from llm_from_scratch.model import Model
 from llm_from_scratch.train import train_model
+from llm_from_scratch.inference import generate_and_print_sample
 
 
 def main() -> int:
@@ -20,7 +21,8 @@ def main() -> int:
     if args.mode == "training":
         train_model(model, config)
     else:
-        pass
+        assert args.start_context
+        generate_and_print_sample(model, config, args.start_context)
 
     return 0
 
@@ -43,6 +45,13 @@ def build_cli_parser() -> argparse.ArgumentParser:
         help="Modo en el que iniciar el modelo: Entrenamiento o inferencia",
         default="inference",
         choices=["training", "inference"],
+    )
+
+    parser.add_argument(
+        "--start-context",
+        help="Durante la inferencia, el texto con el que empezar la predicción",
+        required=False,
+        type=str,
     )
 
     return parser
