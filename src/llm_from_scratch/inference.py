@@ -23,17 +23,25 @@ def generate_and_print_sample(model, config, start_context):
     model.eval()
     context_size = model.positional_embeddings.weight.shape[0]
     encoded = _text_to_token_ids(start_context, config.tokenizer).to(device)
+    endoftext_token = config.tokenizer.encode("<|endoftext|>")[0]
+
     with torch.no_grad():
         token_ids = _generate_text_greedy_decoding(
-            model=model, idx=encoded, max_new_tokens=50, context_size=context_size
+            model=model,
+            idx=encoded,
+            max_new_tokens=500,
+            context_size=context_size,
+            endoftext_token=endoftext_token,
         )
     decoded_text = _token_ids_to_text(token_ids, config.tokenizer)
     print("\nGenerated text:\n")
-    print(decoded_text.replace("\n", " "))
+    print(decoded_text)
     model.train()
 
 
-def _generate_text_greedy_decoding(model, idx, max_new_tokens, context_size):
+def _generate_text_greedy_decoding(
+    model, idx, max_new_tokens, context_size, endoftext_token
+):
     for _ in range(max_new_tokens):
         idx_cond = idx[:, -context_size:]
 
@@ -44,6 +52,9 @@ def _generate_text_greedy_decoding(model, idx, max_new_tokens, context_size):
         probas = torch.softmax(logits, dim=-1)  # (batch, vocab_size)
         idx_next = torch.argmax(probas, dim=-1, keepdim=True)  # (batch, 1)
         idx = torch.cat((idx, idx_next), dim=1)  # (batch, n_tokens+1)
+
+        if idx_next.item() == endoftext_token:
+            break
 
     return idx
 
