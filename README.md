@@ -7,6 +7,9 @@ para entrenar tres LLMs implementados totalmente desde cero:
 - Un LLM que modifica el anterior añadiendo RMSNorm 
 - Un tercer LLM añadiendo RoPE
 
+El código fuente está basado en la implementación llevada a cabo en el libro
+"Build a Large Language Model (From Scratch)" de Sebastian Raschka.
+
 ## Instalación
 
 El repositorio utiliza [uv](https://docs.astral.sh/uv/) para simplificar la
