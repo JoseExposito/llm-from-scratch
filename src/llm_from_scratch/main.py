@@ -17,8 +17,8 @@ def build_cli_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--configuration",
         help="Configuración a utilizar por el modelo",
-        default="gpt-2",
-        choices=["gpt-2"],
+        default="base-model-10M",
+        choices=["base-model-10M"],
     )
 
     return parser

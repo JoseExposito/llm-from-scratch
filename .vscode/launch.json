@@ -17,20 +17,6 @@
             "cwd": "${workspaceFolder}",
             "justMyCode": false,
             "python": "${command:python.interpreterPath}"
-        },
-        {
-            "name": "GPT-2",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${workspaceFolder}/src/llm_from_scratch/main.py",
-            "args": [
-                "--configuration",
-                "gpt-2",
-            ],
-            "console": "integratedTerminal",
-            "cwd": "${workspaceFolder}",
-            "justMyCode": false,
-            "python": "${command:python.interpreterPath}"
         }
     ]
 }
