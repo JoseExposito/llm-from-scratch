@@ -1,0 +1,64 @@
+Model information:
+- Number of parameters: 9,854,464
+- Size of the model: 37.59 MB
+Using cuda device
+Setting up data loaders (Tue Jun 23 18:57:11 2026)
+Training started (Tue Jun 23 18:57:32 2026)
+Ep 1 (Step 000000): Train loss 8.838, Val loss 8.831, Perplexity 6892.986
+Ep 1 (Step 000500): Train loss 3.049, Val loss 2.814, Perplexity 21.095
+Ep 1 (Step 001000): Train loss 2.675, Val loss 2.425, Perplexity 14.507
+Ep 1 (Step 001500): Train loss 2.466, Val loss 2.223, Perplexity 11.776
+Ep 1 (Step 002000): Train loss 2.370, Val loss 2.076, Perplexity 10.701
+Ep 1 (Step 002500): Train loss 2.253, Val loss 1.974, Perplexity 9.512
+Ep 1 (Step 003000): Train loss 2.148, Val loss 1.896, Perplexity 8.565
+Ep 1 (Step 003500): Train loss 2.140, Val loss 1.842, Perplexity 8.496
+Ep 1 (Step 004000): Train loss 2.074, Val loss 1.801, Perplexity 7.958
+Ep 1 (Step 004500): Train loss 2.016, Val loss 1.761, Perplexity 7.511
+Ep 1 (Step 005000): Train loss 2.044, Val loss 1.732, Perplexity 7.719
+Ep 1 (Step 005500): Train loss 1.973, Val loss 1.706, Perplexity 7.193
+Ep 1 (Step 006000): Train loss 1.993, Val loss 1.683, Perplexity 7.338
+Ep 1 (Step 006500): Train loss 1.946, Val loss 1.670, Perplexity 6.998
+Ep 1 (Step 007000): Train loss 1.954, Val loss 1.651, Perplexity 7.059
+Ep 1 (Step 007500): Train loss 1.909, Val loss 1.641, Perplexity 6.744
+Ep 1 (Step 008000): Train loss 1.898, Val loss 1.616, Perplexity 6.671
+Ep 1 (Step 008500): Train loss 1.896, Val loss 1.607, Perplexity 6.659
+Ep 1 (Step 009000): Train loss 1.846, Val loss 1.597, Perplexity 6.335
+Ep 1 (Step 009500): Train loss 1.860, Val loss 1.586, Perplexity 6.421
+Ep 1 (Step 010000): Train loss 1.836, Val loss 1.576, Perplexity 6.273
+Ep 1 (Step 010500): Train loss 1.815, Val loss 1.567, Perplexity 6.142
+Ep 1 (Step 011000): Train loss 1.884, Val loss 1.559, Perplexity 6.578
+Ep 1 (Step 011500): Train loss 1.862, Val loss 1.551, Perplexity 6.438
+Ep 1 (Step 012000): Train loss 1.791, Val loss 1.538, Perplexity 5.993
+Ep 1 (Step 012500): Train loss 1.762, Val loss 1.534, Perplexity 5.823
+Ep 1 (Step 013000): Train loss 1.750, Val loss 1.531, Perplexity 5.753
+Ep 1 (Step 013500): Train loss 1.787, Val loss 1.520, Perplexity 5.974
+Ep 1 (Step 014000): Train loss 1.774, Val loss 1.519, Perplexity 5.896
+Ep 1 (Step 014500): Train loss 1.822, Val loss 1.512, Perplexity 6.183
+Ep 1 (Step 015000): Train loss 1.801, Val loss 1.513, Perplexity 6.055
+Ep 1 (Step 015500): Train loss 1.753, Val loss 1.504, Perplexity 5.774
+Ep 1 (Step 016000): Train loss 1.789, Val loss 1.502, Perplexity 5.982
+Ep 1 (Step 016500): Train loss 1.780, Val loss 1.495, Perplexity 5.929
+Ep 1 (Step 017000): Train loss 1.754, Val loss 1.487, Perplexity 5.777
+Ep 1 (Step 017500): Train loss 1.729, Val loss 1.487, Perplexity 5.637
+Ep 1 (Step 018000): Train loss 1.740, Val loss 1.485, Perplexity 5.699
+Ep 1 (Step 018500): Train loss 1.718, Val loss 1.482, Perplexity 5.576
+Ep 1 (Step 019000): Train loss 1.676, Val loss 1.478, Perplexity 5.345
+Ep 1 (Step 019500): Train loss 1.766, Val loss 1.473, Perplexity 5.846
+Ep 1 (Step 020000): Train loss 1.738, Val loss 1.471, Perplexity 5.685
+Ep 1 (Step 020500): Train loss 1.686, Val loss 1.469, Perplexity 5.397
+Ep 1 (Step 021000): Train loss 1.712, Val loss 1.463, Perplexity 5.539
+Ep 1 (Step 021500): Train loss 1.694, Val loss 1.461, Perplexity 5.440
+Ep 1 (Step 022000): Train loss 1.723, Val loss 1.458, Perplexity 5.600
+Ep 1 (Step 022500): Train loss 1.715, Val loss 1.454, Perplexity 5.555
+Ep 1 (Step 023000): Train loss 1.692, Val loss 1.454, Perplexity 5.431
+Ep 1 (Step 023500): Train loss 1.710, Val loss 1.452, Perplexity 5.531
+Ep 1 (Step 024000): Train loss 1.722, Val loss 1.445, Perplexity 5.593
+Ep 1 (Step 024500): Train loss 1.694, Val loss 1.444, Perplexity 5.442
+Ep 1 (Step 025000): Train loss 1.729, Val loss 1.442, Perplexity 5.636
+Ep 1 (Step 025500): Train loss 1.700, Val loss 1.441, Perplexity 5.475
+Ep 1 (Step 026000): Train loss 1.682, Val loss 1.437, Perplexity 5.378
+Ep 1 (Step 026500): Train loss 1.677, Val loss 1.433, Perplexity 5.351
+Ep 1 (Step 027000): Train loss 1.744, Val loss 1.434, Perplexity 5.723
+Ep 1 (Step 027500): Train loss 1.721, Val loss 1.432, Perplexity 5.588
+Ep 1 (Step 028000): Train loss 1.696, Val loss 1.426, Perplexity 5.454
+Training finished (Tue Jun 23 21:33:41 2026)
