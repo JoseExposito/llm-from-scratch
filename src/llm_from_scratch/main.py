@@ -37,7 +37,7 @@ def build_cli_parser() -> argparse.ArgumentParser:
         "--configuration",
         help="Configuración a utilizar por el modelo",
         default="base-model-10M",
-        choices=["base-model-10M", "rms-norm-10M"],
+        choices=["base-model-10M", "rms-norm-10M", "rope-10M"],
     )
 
     parser.add_argument(

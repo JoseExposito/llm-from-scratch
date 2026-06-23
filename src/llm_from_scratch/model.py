@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from llm_from_scratch.config import Config
+from llm_from_scratch.config import Config, PositionalEmbeddingStrategy
 from llm_from_scratch.normalization import create_norm
 from llm_from_scratch.transformer_block import TransformerBlock
 
@@ -10,13 +10,17 @@ class Model(nn.Module):
     def __init__(self, config: Config) -> None:
         super().__init__()
 
+        self.context_length = config.context_length
+        self.positional_embedding_strategy = config.positional_embedding_strategy
+
         self.token_embeddings = nn.Embedding(
             config.vocabulary_size, config.embedding_dim
         )
 
-        self.positional_embeddings = nn.Embedding(
-            config.context_length, config.embedding_dim
-        )
+        if self.positional_embedding_strategy == PositionalEmbeddingStrategy.ABSOLUTE:
+            self.positional_embeddings = nn.Embedding(
+                config.context_length, config.embedding_dim
+            )
 
         self.dropout = nn.Dropout(config.dropout_rate)
 
@@ -37,12 +41,14 @@ class Model(nn.Module):
     def forward(self, in_idx):
         batch_size, seq_len = in_idx.shape
 
-        token_embeddings = self.token_embeddings(in_idx)
-        positional_embeddings = self.positional_embeddings(
-            torch.arange(seq_len, device=in_idx.device)
-        )
+        x = self.token_embeddings(in_idx)
 
-        x = token_embeddings + positional_embeddings
+        if self.positional_embedding_strategy == PositionalEmbeddingStrategy.ABSOLUTE:
+            positional_embeddings = self.positional_embeddings(
+                torch.arange(seq_len, device=in_idx.device)
+            )
+            x = x + positional_embeddings
+
         x = self.dropout(x)
         x = self.transformer_blocks(x)
         x = self.final_norm(x)

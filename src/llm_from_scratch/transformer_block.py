@@ -16,6 +16,7 @@ class TransformerBlock(nn.Module):
             context_length=config.context_length,
             num_heads=config.n_heads,
             dropout=config.dropout_rate,
+            positional_embedding_strategy=config.positional_embedding_strategy,
             qkv_bias=config.query_key_value_bias,
         )
         self.ff = FeedForward(config.embedding_dim)

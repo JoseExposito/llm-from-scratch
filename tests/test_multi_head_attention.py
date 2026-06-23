@@ -2,6 +2,7 @@ import torch
 import unittest
 
 from llm_from_scratch.multi_head_attention import MultiHeadAttention
+from llm_from_scratch.config import PositionalEmbeddingStrategy
 
 
 class TestMultiHeadAttention(unittest.TestCase):
@@ -26,7 +27,14 @@ class TestMultiHeadAttention(unittest.TestCase):
         dropout = 0.0
         num_heads = 2
 
-        mha = MultiHeadAttention(d_in, d_out, context_length, dropout, num_heads)
+        mha = MultiHeadAttention(
+            d_in,
+            d_out,
+            context_length,
+            dropout,
+            num_heads,
+            PositionalEmbeddingStrategy.ABSOLUTE,
+        )
         context_vec = mha(batch)
 
         expected = torch.tensor(

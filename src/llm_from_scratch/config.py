@@ -10,6 +10,13 @@ class NormalizationStrategy(Enum):
     RMS_NORM = "rms_norm"
 
 
+class PositionalEmbeddingStrategy(Enum):
+    """Estrategias de embedding posicional disponibles para el modelo"""
+
+    ABSOLUTE = "absolute"
+    ROPE = "rope"
+
+
 class Config:
     """Clase que almacena la configuración utilizada por el modelo"""
 
@@ -25,6 +32,7 @@ class Config:
         dropout_rate: float,
         query_key_value_bias: bool,
         normalization_strategy: NormalizationStrategy,
+        positional_embedding_strategy: PositionalEmbeddingStrategy,
     ) -> None:
         """
         Args:
@@ -46,6 +54,9 @@ class Config:
                 capas de query, key y value del mecanismo de atención.
             normalization_strategy: Estrategia de normalización utilizada en los
                 bloques transformer y en la normalización final del modelo.
+            positional_embedding_strategy: Estrategia de embedding posicional
+                utilizada por el modelo para codificar la posición de los tokens
+                en la secuencia.
         """
         self.name = name
         self.tokenizer = tokenizer
@@ -57,6 +68,7 @@ class Config:
         self.dropout_rate = dropout_rate
         self.query_key_value_bias = query_key_value_bias
         self.normalization_strategy = normalization_strategy
+        self.positional_embedding_strategy = positional_embedding_strategy
 
 
 class ConfigFactory:
@@ -72,7 +84,7 @@ class ConfigFactory:
 
     @staticmethod
     def create_config(
-        type: Literal["base-model-10M", "rms-norm-10M"],
+        type: Literal["base-model-10M", "rms-norm-10M", "rope-10M"],
     ) -> Config:
         if type == "base-model-10M":
             tokenizer, vocabulary_size = ConfigFactory._load_tinystories_tokenizer()
@@ -88,6 +100,7 @@ class ConfigFactory:
                 dropout_rate=0.1,
                 query_key_value_bias=False,
                 normalization_strategy=NormalizationStrategy.LAYER_NORM,
+                positional_embedding_strategy=PositionalEmbeddingStrategy.ABSOLUTE,
             )
         elif type == "rms-norm-10M":
             tokenizer, vocabulary_size = ConfigFactory._load_tinystories_tokenizer()
@@ -103,5 +116,22 @@ class ConfigFactory:
                 dropout_rate=0.1,
                 query_key_value_bias=False,
                 normalization_strategy=NormalizationStrategy.RMS_NORM,
+                positional_embedding_strategy=PositionalEmbeddingStrategy.ABSOLUTE,
+            )
+        elif type == "rope-10M":
+            tokenizer, vocabulary_size = ConfigFactory._load_tinystories_tokenizer()
+
+            return Config(
+                name=type,
+                tokenizer=tokenizer,
+                vocabulary_size=vocabulary_size,
+                context_length=512,
+                embedding_dim=256,
+                n_heads=8,
+                n_transformer_blocks=6,
+                dropout_rate=0.1,
+                query_key_value_bias=False,
+                normalization_strategy=NormalizationStrategy.LAYER_NORM,
+                positional_embedding_strategy=PositionalEmbeddingStrategy.ROPE,
             )
         raise NotImplementedError(f"La configuración {type} no está soportada")

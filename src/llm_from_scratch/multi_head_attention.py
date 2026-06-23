@@ -1,6 +1,9 @@
 import torch
 import torch.nn as nn
 
+from llm_from_scratch.config import PositionalEmbeddingStrategy
+from llm_from_scratch.positional_embedding import compute_rope, precompute_rope_params
+
 
 class MultiHeadAttention(nn.Module):
     """Implementación del mecanismo de atención explicado con mucho más detalle
@@ -11,7 +14,16 @@ class MultiHeadAttention(nn.Module):
     eficiencia.
     """
 
-    def __init__(self, d_in, d_out, context_length, dropout, num_heads, qkv_bias=False):
+    def __init__(
+        self,
+        d_in,
+        d_out,
+        context_length,
+        dropout,
+        num_heads,
+        positional_embedding_strategy,
+        qkv_bias=False,
+    ):
         super().__init__()
 
         assert d_out % num_heads == 0, "d_out debe ser divisible entre num_heads"
@@ -26,12 +38,16 @@ class MultiHeadAttention(nn.Module):
 
         self.dropout = nn.Dropout(dropout)
 
-        # Layer que combina la salida de las "heads"
         self.out_proj = nn.Linear(d_out, d_out)
 
         self.register_buffer(
             "mask", torch.triu(torch.ones(context_length, context_length), diagonal=1)
         )
+
+        if positional_embedding_strategy == PositionalEmbeddingStrategy.ROPE:
+            cos, sin = precompute_rope_params(self.head_dim, context_length)
+            self.register_buffer("cos", cos)
+            self.register_buffer("sin", sin)
 
     def forward(self, x):
         b, num_tokens, d_in = x.shape
@@ -47,6 +63,10 @@ class MultiHeadAttention(nn.Module):
         keys = keys.transpose(1, 2)
         queries = queries.transpose(1, 2)
         values = values.transpose(1, 2)
+
+        if hasattr(self, "cos"):
+            keys = compute_rope(keys, self.cos, self.sin)
+            queries = compute_rope(queries, self.cos, self.sin)
 
         attn_scores = queries @ keys.transpose(2, 3)
         mask_bool = self.mask.bool()[:num_tokens, :num_tokens]

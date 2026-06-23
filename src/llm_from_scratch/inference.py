@@ -21,7 +21,7 @@ def generate_and_print_sample(model, config, start_context):
 
     # Generamos el texto
     model.eval()
-    context_size = model.positional_embeddings.weight.shape[0]
+    context_size = config.context_length
     encoded = _text_to_token_ids(start_context, config.tokenizer).to(device)
     endoftext_token = config.tokenizer.encode("<|endoftext|>")[0]
 
