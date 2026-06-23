@@ -1,5 +1,13 @@
+from enum import Enum
 from transformers import PreTrainedTokenizerFast
 from typing import Literal
+
+
+class NormalizationStrategy(Enum):
+    """Estrategias de normalización disponibles para el modelo"""
+
+    LAYER_NORM = "layer_norm"
+    RMS_NORM = "rms_norm"
 
 
 class Config:
@@ -16,6 +24,7 @@ class Config:
         n_transformer_blocks: int,
         dropout_rate: float,
         query_key_value_bias: bool,
+        normalization_strategy: NormalizationStrategy,
     ) -> None:
         """
         Args:
@@ -35,6 +44,8 @@ class Config:
                 durante el entrenamiento. Ayuda a reducir el overfitting.
             query_key_value_bias: Si se suma o no un bias a las neuronas de las
                 capas de query, key y value del mecanismo de atención.
+            normalization_strategy: Estrategia de normalización utilizada en los
+                bloques transformer y en la normalización final del modelo.
         """
         self.name = name
         self.tokenizer = tokenizer
@@ -45,19 +56,26 @@ class Config:
         self.n_transformer_blocks = n_transformer_blocks
         self.dropout_rate = dropout_rate
         self.query_key_value_bias = query_key_value_bias
+        self.normalization_strategy = normalization_strategy
 
 
 class ConfigFactory:
     """Factoría para crear las distintas configuraciones disponibles"""
 
     @staticmethod
-    def create_config(type: Literal["base-model-10M"]) -> Config:
+    def _load_tinystories_tokenizer() -> tuple[PreTrainedTokenizerFast, int]:
+        # https://huggingface.co/vuiseng9/bpe-10.0k-tinystories
+        tokenizer = PreTrainedTokenizerFast.from_pretrained(
+            "vuiseng9/bpe-10.0k-tinystories"
+        )
+        return tokenizer, tokenizer.vocab_size
+
+    @staticmethod
+    def create_config(
+        type: Literal["base-model-10M", "rms-norm-10M"],
+    ) -> Config:
         if type == "base-model-10M":
-            # https://huggingface.co/vuiseng9/bpe-10.0k-tinystories
-            tokenizer = PreTrainedTokenizerFast.from_pretrained(
-                "vuiseng9/bpe-10.0k-tinystories"
-            )
-            vocabulary_size = tokenizer.vocab_size
+            tokenizer, vocabulary_size = ConfigFactory._load_tinystories_tokenizer()
 
             return Config(
                 name=type,
@@ -69,5 +87,21 @@ class ConfigFactory:
                 n_transformer_blocks=6,
                 dropout_rate=0.1,
                 query_key_value_bias=False,
+                normalization_strategy=NormalizationStrategy.LAYER_NORM,
+            )
+        elif type == "rms-norm-10M":
+            tokenizer, vocabulary_size = ConfigFactory._load_tinystories_tokenizer()
+
+            return Config(
+                name=type,
+                tokenizer=tokenizer,
+                vocabulary_size=vocabulary_size,
+                context_length=512,
+                embedding_dim=256,
+                n_heads=8,
+                n_transformer_blocks=6,
+                dropout_rate=0.1,
+                query_key_value_bias=False,
+                normalization_strategy=NormalizationStrategy.RMS_NORM,
             )
         raise NotImplementedError(f"La configuración {type} no está soportada")

@@ -2,7 +2,7 @@ import torch.nn as nn
 
 from llm_from_scratch.config import Config
 from llm_from_scratch.feed_forward import FeedForward
-from llm_from_scratch.layer_norm import LayerNorm
+from llm_from_scratch.normalization import create_norm
 from llm_from_scratch.multi_head_attention import MultiHeadAttention
 
 
@@ -19,8 +19,8 @@ class TransformerBlock(nn.Module):
             qkv_bias=config.query_key_value_bias,
         )
         self.ff = FeedForward(config.embedding_dim)
-        self.norm1 = LayerNorm(config.embedding_dim)
-        self.norm2 = LayerNorm(config.embedding_dim)
+        self.norm1 = create_norm(config.normalization_strategy, config.embedding_dim)
+        self.norm2 = create_norm(config.normalization_strategy, config.embedding_dim)
         self.drop_shortcut = nn.Dropout(config.dropout_rate)
 
     def forward(self, x):

@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 from llm_from_scratch.config import Config
-from llm_from_scratch.layer_norm import LayerNorm
+from llm_from_scratch.normalization import create_norm
 from llm_from_scratch.transformer_block import TransformerBlock
 
 
@@ -24,7 +24,9 @@ class Model(nn.Module):
             *[TransformerBlock(config) for _ in range(config.n_transformer_blocks)]
         )
 
-        self.final_norm = LayerNorm(config.embedding_dim)
+        self.final_norm = create_norm(
+            config.normalization_strategy, config.embedding_dim
+        )
 
         self.out_head = nn.Linear(
             config.embedding_dim,
