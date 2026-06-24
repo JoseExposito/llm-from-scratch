@@ -44,8 +44,8 @@ class RMSNorm(nn.Module):
         self.scale = nn.Parameter(torch.ones(embedding_dim))
 
     def forward(self, x) -> torch.Tensor:
-        variance = x.pow(2).mean(dim=-1, keepdim=True) + self.eps
-        norm_x = x * torch.rsqrt(variance)
+        rms = x.pow(2).mean(dim=-1, keepdim=True) + self.eps
+        norm_x = x * torch.rsqrt(rms)
         norm_x = self.scale * norm_x
 
         return norm_x
